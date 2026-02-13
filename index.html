@@ -555,7 +555,434 @@
     100% { transform: translateX(calc(100vw + 200px)); }
   }
 
-  /* ========== STAGE 4: CELEBRATION ========== */
+  /* ========== STAGE 4: LOVE SLIDER ========== */
+  #stage-slider {
+    background: linear-gradient(180deg, var(--soft-pink) 0%, var(--lavender) 50%, var(--baby-blue) 100%);
+  }
+
+  .slider-card {
+    background: var(--white);
+    border: 5px solid var(--deep-pink);
+    border-radius: 16px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    animation: cardAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    width: 400px;
+  }
+
+  .slider-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: var(--deep-pink);
+    line-height: 2.2;
+    margin-bottom: 30px;
+  }
+
+  .slider-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--lavender);
+    margin-bottom: 10px;
+  }
+
+  .slider-labels span:last-child {
+    color: var(--red);
+    font-weight: bold;
+  }
+
+  /* Custom pixel slider */
+  .love-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(90deg, var(--baby-blue), var(--lavender), var(--pink), var(--red));
+    border-radius: 4px;
+    outline: none;
+    border: 3px solid var(--deep-pink);
+    cursor: pointer;
+  }
+
+  .love-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    background: var(--red);
+    border: 3px solid var(--deep-pink);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #c0394f;
+    transition: transform 0.1s;
+  }
+
+  .love-slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    background: var(--red);
+    border: 3px solid var(--deep-pink);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #c0394f;
+  }
+
+  .love-slider:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+
+  .slider-value {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: var(--red);
+    margin-top: 15px;
+    min-height: 30px;
+    transition: transform 0.15s;
+  }
+
+  .slider-hint {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--lavender);
+    margin-top: 8px;
+    margin-bottom: 25px;
+    min-height: 24px;
+    transition: opacity 0.3s;
+  }
+
+  .slider-next-btn {
+    margin-top: 5px;
+  }
+
+  .slider-value.nope {
+    animation: sliderNope 0.3s ease;
+  }
+
+  @keyframes sliderNope {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+
+  @media (max-width: 600px) {
+    .slider-card { padding: 25px 20px; width: 90vw; }
+    .slider-title { font-size: 13px; }
+    .slider-value { font-size: 16px; }
+  }
+
+  /* ========== STAGE 5: TYPING ========== */
+  #stage-typing {
+    background: linear-gradient(180deg, var(--baby-blue) 0%, var(--soft-pink) 50%, var(--lavender) 100%);
+  }
+
+  .typing-card {
+    background: var(--white);
+    border: 5px solid var(--deep-pink);
+    border-radius: 16px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    animation: cardAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    width: 440px;
+  }
+
+  .typing-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: var(--deep-pink);
+    line-height: 2.2;
+    margin-bottom: 25px;
+  }
+
+  .typing-box {
+    background: var(--cream);
+    border: 3px solid var(--lavender);
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 80px;
+    text-align: left;
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    color: var(--deep-pink);
+    margin-bottom: 15px;
+    cursor: text;
+    position: relative;
+  }
+
+  .typing-cursor {
+    animation: blink 0.6s step-end infinite;
+    font-weight: bold;
+    color: var(--red);
+  }
+
+  .typing-hint {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--lavender);
+    margin-bottom: 20px;
+    min-height: 24px;
+    transition: opacity 0.3s;
+  }
+
+  .typing-next-btn {
+    animation: cardAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @media (max-width: 600px) {
+    .typing-card { padding: 25px 20px; width: 90vw; }
+    .typing-title { font-size: 13px; }
+    .typing-box { font-size: 20px; padding: 15px; }
+  }
+
+  /* ========== STAGE 6: COMPLIMENTS ========== */
+  #stage-compliments {
+    background: linear-gradient(180deg, var(--lavender) 0%, var(--soft-pink) 50%, var(--baby-blue) 100%);
+  }
+
+  .compliments-card {
+    background: var(--white);
+    border: 5px solid var(--deep-pink);
+    border-radius: 16px;
+    padding: 35px 45px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    animation: cardAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    width: 440px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .compliments-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    color: var(--deep-pink);
+    line-height: 2.2;
+    margin-bottom: 20px;
+  }
+
+  .compliments-list {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+
+  .compliment-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    user-select: none;
+  }
+
+  .compliment-item:hover {
+    background: var(--cream);
+  }
+
+  .compliment-item.pop-in {
+    animation: complimentPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes complimentPop {
+    0% { transform: scale(0) translateX(-20px); opacity: 0; }
+    100% { transform: scale(1) translateX(0); opacity: 1; }
+  }
+
+  .compliment-checkbox {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border: 3px solid var(--deep-pink);
+    border-radius: 4px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+
+  .compliment-checkbox::after {
+    content: '';
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+  }
+
+  .compliment-checkbox.shake {
+    animation: checkShake 0.4s ease;
+  }
+
+  @keyframes checkShake {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-15deg) scale(1.2); }
+    40% { transform: rotate(10deg) scale(1.1); }
+    60% { transform: rotate(-8deg); }
+    80% { transform: rotate(5deg); }
+  }
+
+  .compliment-label {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: var(--deep-pink);
+  }
+
+  .compliments-hint {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--lavender);
+    margin-bottom: 20px;
+    min-height: 24px;
+  }
+
+  .compliments-next-btn {
+    margin-top: 5px;
+  }
+
+  @media (max-width: 600px) {
+    .compliments-card { padding: 25px 18px; width: 92vw; }
+    .compliments-title { font-size: 11px; }
+    .compliment-label { font-size: 18px; }
+  }
+
+  /* ========== STAGE 7: SLIDE PUZZLE ========== */
+  #stage-puzzle {
+    background: linear-gradient(180deg, var(--soft-pink) 0%, var(--baby-blue) 50%, var(--lavender) 100%);
+  }
+
+  .puzzle-card {
+    background: var(--white);
+    border: 5px solid var(--deep-pink);
+    border-radius: 16px;
+    padding: 30px 35px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    animation: cardAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
+    max-width: 95vw;
+  }
+
+  .puzzle-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    color: var(--deep-pink);
+    line-height: 2;
+    margin-bottom: 20px;
+  }
+
+  .puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    width: 270px;
+    height: 270px;
+    margin: 0 auto 15px;
+    background: var(--lavender);
+    border: 4px solid var(--deep-pink);
+    border-radius: 6px;
+    padding: 4px;
+  }
+
+  .puzzle-tile {
+    background-size: 270px 270px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .puzzle-tile:hover {
+    transform: scale(1.03);
+    border-color: var(--deep-pink);
+  }
+
+  .puzzle-tile.empty {
+    background: transparent !important;
+    border: none;
+    cursor: default;
+  }
+
+  .puzzle-tile.empty:hover {
+    transform: none;
+  }
+
+  .puzzle-hint {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--lavender);
+    min-height: 24px;
+  }
+
+  .puzzle-solved-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 245, 245, 0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .puzzle-solved-overlay.active {
+    display: flex;
+  }
+
+  .puzzle-solved-card {
+    background: var(--white);
+    border: 6px solid var(--deep-pink);
+    border-radius: 16px;
+    padding: 45px 55px;
+    text-align: center;
+    box-shadow:
+      0 0 0 4px var(--soft-pink),
+      0 0 0 8px var(--lavender),
+      0 20px 60px rgba(0,0,0,0.15);
+    animation: cardAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .puzzle-solved-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: var(--red);
+    line-height: 2;
+    margin-bottom: 25px;
+    animation: rainbowText 2s ease-in-out infinite;
+  }
+
+  @media (max-width: 600px) {
+    .puzzle-grid { width: 220px; height: 220px; }
+    .puzzle-tile { background-size: 220px 220px; }
+    .puzzle-card { padding: 20px 18px; }
+    .puzzle-title { font-size: 11px; }
+    .puzzle-solved-text { font-size: 15px; }
+    .puzzle-solved-card { padding: 30px 25px; }
+  }
+
+  /* ========== STAGE 8: CELEBRATION ========== */
   #stage-celebrate {
     background: linear-gradient(135deg, var(--soft-pink) 0%, var(--lavender) 40%, var(--baby-blue) 70%, var(--soft-pink) 100%);
     background-size: 300% 300%;
@@ -741,7 +1168,66 @@
   </div>
 </div>
 
-<!-- ========== STAGE 4: CELEBRATION ========== -->
+<!-- ========== STAGE 4: LOVE SLIDER ========== -->
+<div class="stage" id="stage-slider">
+  <div class="clouds-container" id="sliderClouds"></div>
+  <div class="slider-card">
+    <div class="slider-title">How much do<br>you love me?</div>
+    <div class="slider-wrapper">
+      <div class="slider-labels">
+        <span>a lot</span>
+        <span>so much</span>
+        <span>infinity</span>
+      </div>
+      <input type="range" id="loveSlider" min="0" max="100" value="100" class="love-slider">
+      <div class="slider-value" id="sliderValue">infinity</div>
+    </div>
+    <div class="slider-hint" id="sliderHint"></div>
+    <button class="btn-yes slider-next-btn" id="sliderNextBtn" onclick="goToCelebrate()">NEXT</button>
+  </div>
+</div>
+
+<!-- ========== STAGE 5: TYPING ========== -->
+<div class="stage" id="stage-typing">
+  <div class="clouds-container" id="typingClouds"></div>
+  <div class="typing-card">
+    <div class="typing-title">Tell me why<br>you love me</div>
+    <div class="typing-box" id="typingBox">
+      <span id="typedText"></span><span class="typing-cursor">_</span>
+    </div>
+    <div class="typing-hint" id="typingHint">go ahead, type anything...</div>
+    <button class="btn-yes typing-next-btn" id="typingNextBtn" onclick="goToCelebrateFromTyping()" style="display:none;">SUBMIT</button>
+  </div>
+</div>
+
+<!-- ========== STAGE 6: COMPLIMENTS ========== -->
+<div class="stage" id="stage-compliments">
+  <div class="clouds-container" id="complimentsClouds"></div>
+  <div class="compliments-card" id="complimentsCard">
+    <div class="compliments-title">Uncheck the ones<br>that don't apply</div>
+    <div class="compliments-list" id="complimentsList"></div>
+    <div class="compliments-hint" id="complimentsHint">go ahead, try to uncheck one</div>
+    <button class="btn-yes compliments-next-btn" id="complimentsNextBtn" onclick="goToCelebrateFromCompliments()">NEXT</button>
+  </div>
+</div>
+
+<!-- ========== STAGE 7: SLIDE PUZZLE ========== -->
+<div class="stage" id="stage-puzzle">
+  <div class="clouds-container" id="puzzleClouds"></div>
+  <div class="puzzle-card">
+    <div class="puzzle-title">Solve the puzzle</div>
+    <div class="puzzle-grid" id="puzzleGrid"></div>
+    <div class="puzzle-hint" id="puzzleHint">click a tile next to the gap</div>
+  </div>
+  <div class="puzzle-solved-overlay" id="puzzleSolvedOverlay">
+    <div class="puzzle-solved-card">
+      <div class="puzzle-solved-text">you complete me!</div>
+      <button class="btn-yes" onclick="goToQuestionFromPuzzle()">NEXT</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== STAGE 8: CELEBRATION ========== -->
 <div class="stage" id="stage-celebrate">
   <div class="confetti-container" id="confettiContainer"></div>
   <div class="hearts-rain" id="heartsRain"></div>
@@ -821,8 +1307,8 @@
 
     setTimeout(() => {
       flash(() => {
-        switchStage('stage-envelope', 'stage-question');
-        initNoButton();
+        switchStage('stage-envelope', 'stage-slider');
+        initSliderGimmick();
       });
     }, 1400);
   }
@@ -991,6 +1477,428 @@
       playVictorySound();
       spawnConfetti();
       spawnHeartsRain();
+    });
+  }
+
+  // ======== LOVE SLIDER GIMMICK ========
+  function initSliderGimmick() {
+    createClouds('sliderClouds', 6);
+
+    const slider = document.getElementById('loveSlider');
+    const valueDisplay = document.getElementById('sliderValue');
+    const hint = document.getElementById('sliderHint');
+    let creepInterval = null;
+    let isUserDragging = false;
+    let shakeCount = 0;
+
+    const messages = [
+      { min: 90, text: 'infinity', hint: '' },
+      { min: 70, text: 'soooo much', hint: 'nope, higher!' },
+      { min: 50, text: 'a whole lot', hint: 'hmm... are you sure?' },
+      { min: 30, text: 'pretty good', hint: 'wait no come back!!' },
+      { min: 10, text: 'some??', hint: 'EXCUSE ME?!' },
+      { min: 0, text: 'WRONG', hint: 'nice try >:(' },
+    ];
+
+    function getLabel(val) {
+      for (const m of messages) {
+        if (val >= m.min) return m;
+      }
+      return messages[messages.length - 1];
+    }
+
+    function updateDisplay() {
+      const val = parseInt(slider.value);
+      const msg = getLabel(val);
+      valueDisplay.textContent = msg.text;
+      hint.textContent = msg.hint;
+
+      if (val < 90) {
+        valueDisplay.classList.add('nope');
+        setTimeout(() => valueDisplay.classList.remove('nope'), 300);
+      }
+    }
+
+    // Slider always creeps back to max
+    function startCreep() {
+      if (creepInterval) return;
+      creepInterval = setInterval(() => {
+        if (isUserDragging) return;
+        const current = parseInt(slider.value);
+        if (current < 100) {
+          // Speed increases the further away from max
+          const diff = 100 - current;
+          const step = Math.max(1, Math.floor(diff / 8));
+          slider.value = Math.min(100, current + step);
+          updateDisplay();
+        }
+      }, 50);
+    }
+
+    slider.addEventListener('input', () => {
+      isUserDragging = true;
+      updateDisplay();
+      shakeCount++;
+    });
+
+    slider.addEventListener('mousedown', () => { isUserDragging = true; });
+    slider.addEventListener('touchstart', () => { isUserDragging = true; });
+
+    slider.addEventListener('mouseup', () => {
+      isUserDragging = false;
+      // Snap back faster on release
+      snapBack();
+    });
+    slider.addEventListener('touchend', () => {
+      isUserDragging = false;
+      snapBack();
+    });
+
+    function snapBack() {
+      const snapInterval = setInterval(() => {
+        const current = parseInt(slider.value);
+        if (current >= 100 || isUserDragging) {
+          clearInterval(snapInterval);
+          updateDisplay();
+          return;
+        }
+        const diff = 100 - current;
+        const step = Math.max(2, Math.floor(diff / 4));
+        slider.value = Math.min(100, current + step);
+        updateDisplay();
+      }, 30);
+    }
+
+    startCreep();
+    updateDisplay();
+  }
+
+  function goToCelebrate() {
+    flash(() => {
+      switchStage('stage-slider', 'stage-typing');
+      initTypingGimmick();
+    });
+  }
+
+  // ======== TYPING GIMMICK ========
+  function initTypingGimmick() {
+    createClouds('typingClouds', 6);
+
+    const secret = "Because he's so cool and funny !!";
+    let charIndex = 0;
+    const typedText = document.getElementById('typedText');
+    const hint = document.getElementById('typingHint');
+    const nextBtn = document.getElementById('typingNextBtn');
+    let finished = false;
+
+    function advanceChar() {
+      if (charIndex >= secret.length) {
+        finished = true;
+        hint.textContent = "hmm... looks about right";
+        nextBtn.style.display = '';
+        return;
+      }
+      typedText.textContent = secret.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === 1) {
+        hint.textContent = "wait...";
+      } else if (charIndex === 10) {
+        hint.textContent = "hehe";
+      } else if (charIndex === 20) {
+        hint.textContent = "keep going...";
+      }
+    }
+
+    function handleKey(e) {
+      if (finished) return;
+      e.preventDefault();
+      advanceChar();
+    }
+
+    document.addEventListener('keydown', handleKey);
+
+    // Mobile support: tap the box to type
+    document.getElementById('typingBox').addEventListener('click', () => {
+      if (finished) return;
+      advanceChar();
+    });
+
+    // Touch support: each tap advances
+    document.getElementById('typingBox').addEventListener('touchstart', (e) => {
+      if (finished) return;
+      e.preventDefault();
+      advanceChar();
+    });
+  }
+
+  function goToCelebrateFromTyping() {
+    flash(() => {
+      switchStage('stage-typing', 'stage-compliments');
+      initComplimentsGimmick();
+    });
+  }
+
+  // ======== COMPLIMENTS GIMMICK ========
+  function initComplimentsGimmick() {
+    createClouds('complimentsClouds', 6);
+
+    const allCompliments = [
+      "sooo pretty",
+      "really thoughtful",
+      "can't drive...... yet",
+      "so kind",
+      "beautiful",
+      "so cool",
+      "Solomon 4:7",
+      "you are delectable",
+      "I love being around you",
+      "I'm so proud of you"
+    ];
+
+    const startCount = 3;
+    let nextIndex = startCount;
+    const list = document.getElementById('complimentsList');
+    const hint = document.getElementById('complimentsHint');
+    const card = document.getElementById('complimentsCard');
+
+    const hintMessages = [
+      "nice try",
+      "nope, that one stays",
+      "you can't remove facts",
+      "it's TRUE though",
+      "not optional",
+      "that's just science",
+      "try again... or don't",
+      "denied",
+      "lol you thought",
+      "absolutely not"
+    ];
+    let hintIndex = 0;
+
+    function addCompliment(text, animate) {
+      const item = document.createElement('div');
+      item.className = 'compliment-item' + (animate ? ' pop-in' : '');
+
+      const checkbox = document.createElement('div');
+      checkbox.className = 'compliment-checkbox';
+
+      const label = document.createElement('span');
+      label.className = 'compliment-label';
+      label.textContent = text;
+
+      item.appendChild(checkbox);
+      item.appendChild(label);
+      list.appendChild(item);
+
+      item.addEventListener('click', () => {
+        // Shake the checkbox
+        checkbox.classList.remove('shake');
+        void checkbox.offsetWidth;
+        checkbox.classList.add('shake');
+
+        // Update hint
+        hint.textContent = hintMessages[hintIndex % hintMessages.length];
+        hintIndex++;
+
+        // Spawn next compliment from the list
+        if (nextIndex < allCompliments.length) {
+          addCompliment(allCompliments[nextIndex], true);
+          nextIndex++;
+          // Scroll card to bottom to show new one
+          setTimeout(() => card.scrollTop = card.scrollHeight, 100);
+        }
+      });
+    }
+
+    // Add first 3 compliments
+    for (let i = 0; i < startCount; i++) {
+      addCompliment(allCompliments[i], false);
+    }
+  }
+
+  function goToCelebrateFromCompliments() {
+    flash(() => {
+      switchStage('stage-compliments', 'stage-puzzle');
+      initPuzzle();
+    });
+  }
+
+  // ======== SLIDE PUZZLE ========
+  function initPuzzle() {
+    createClouds('puzzleClouds', 6);
+
+    const grid = document.getElementById('puzzleGrid');
+    const hint = document.getElementById('puzzleHint');
+    const size = 3;
+
+    // =====================================================
+    // CUSTOM IMAGE: Replace this URL with your own image!
+    // Use a square image for best results (e.g. 540x540).
+    // Just change the string below:
+    const IMAGE_URL = 'for-tanieal/4BDBF238-906F-4A73-96E2-089DC4009B7F_1_201_a.png';
+    // =====================================================
+
+    // Generate a pixel heart image via canvas if no custom image
+    function generateHeartImage() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 270;
+      canvas.height = 270;
+      const ctx = canvas.getContext('2d');
+
+      // Background
+      const grad = ctx.createLinearGradient(0, 0, 270, 270);
+      grad.addColorStop(0, '#FFD1DC');
+      grad.addColorStop(0.5, '#C8A2D4');
+      grad.addColorStop(1, '#A8D8EA');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 270, 270);
+
+      // Pixel heart pattern (16x16 grid scaled up)
+      const heart = [
+        '..xxxx..xxxx..',
+        '.xxxxxxxx.xxx.',
+        'xxxxxxxxxxxxxx',
+        'xxxxxxxxxxxxxx',
+        'xxxxxxxxxxxxxx',
+        '.xxxxxxxxxxxx.',
+        '..xxxxxxxxxx..',
+        '...xxxxxxxx...',
+        '....xxxxxx....',
+        '.....xxxx.....',
+        '......xx......',
+      ];
+
+      const pixelSize = 16;
+      const offsetX = (270 - 14 * pixelSize) / 2;
+      const offsetY = (270 - 11 * pixelSize) / 2 - 5;
+
+      ctx.fillStyle = '#E74C6F';
+      heart.forEach((row, y) => {
+        for (let x = 0; x < row.length; x++) {
+          if (row[x] === 'x') {
+            ctx.fillRect(offsetX + x * pixelSize, offsetY + y * pixelSize, pixelSize - 1, pixelSize - 1);
+          }
+        }
+      });
+
+      // Add subtle grid lines for pixel look
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * 90, 0);
+        ctx.lineTo(i * 90, 270);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, i * 90);
+        ctx.lineTo(270, i * 90);
+        ctx.stroke();
+      }
+
+      return canvas.toDataURL();
+    }
+
+    function buildPuzzle(imgSrc) {
+      // Tiles numbered 0-8, where 8 is the empty space
+      let tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+      // Shuffle with solvable permutation
+      function isSolvable(arr) {
+        let inversions = 0;
+        const filtered = arr.filter(t => t !== 8);
+        for (let i = 0; i < filtered.length; i++) {
+          for (let j = i + 1; j < filtered.length; j++) {
+            if (filtered[i] > filtered[j]) inversions++;
+          }
+        }
+        return inversions % 2 === 0;
+      }
+
+      do {
+        for (let i = tiles.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+        }
+      } while (!isSolvable(tiles) || isSolved(tiles));
+
+      function isSolved(arr) {
+        return arr.every((t, i) => t === i);
+      }
+
+      const puzzleWidth = window.innerWidth <= 600 ? 220 : 270;
+
+      function render() {
+        grid.innerHTML = '';
+        tiles.forEach((tile, index) => {
+          const el = document.createElement('div');
+          el.className = 'puzzle-tile' + (tile === 8 ? ' empty' : '');
+
+          if (tile !== 8) {
+            const col = tile % size;
+            const row = Math.floor(tile / size);
+            const tileSize = puzzleWidth / size;
+            el.style.backgroundImage = `url('${imgSrc}')`;
+            el.style.backgroundSize = `${puzzleWidth}px ${puzzleWidth}px`;
+            el.style.backgroundPosition = `-${col * tileSize}px -${row * tileSize}px`;
+          }
+
+          el.addEventListener('click', () => {
+            const emptyIndex = tiles.indexOf(8);
+            const row = Math.floor(index / size);
+            const col = index % size;
+            const emptyRow = Math.floor(emptyIndex / size);
+            const emptyCol = emptyIndex % size;
+
+            const adjacent = (Math.abs(row - emptyRow) + Math.abs(col - emptyCol)) === 1;
+
+            if (adjacent) {
+              [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+              render();
+
+              if (isSolved(tiles)) {
+                setTimeout(() => {
+                  hint.textContent = '';
+                  // Show completed image briefly
+                  grid.innerHTML = '';
+                  const full = document.createElement('div');
+                  full.style.cssText = `
+                    grid-column: 1 / -1; grid-row: 1 / -1;
+                    background-image: url('${imgSrc}');
+                    background-size: cover;
+                    border-radius: 4px;
+                    animation: cardAppear 0.4s ease;
+                  `;
+                  grid.style.gridTemplateColumns = '1fr';
+                  grid.style.gridTemplateRows = '1fr';
+                  grid.appendChild(full);
+
+                  setTimeout(() => {
+                    document.getElementById('puzzleSolvedOverlay').classList.add('active');
+                  }, 800);
+                }, 300);
+              }
+            }
+          });
+
+          grid.appendChild(el);
+        });
+      }
+
+      render();
+    }
+
+    if (IMAGE_URL) {
+      buildPuzzle(IMAGE_URL);
+    } else {
+      buildPuzzle(generateHeartImage());
+    }
+  }
+
+  function goToQuestionFromPuzzle() {
+    flash(() => {
+      switchStage('stage-puzzle', 'stage-question');
+      initNoButton();
     });
   }
 </script>
