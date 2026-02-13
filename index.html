@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Tanieal</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8455A;
+    --red-dark: #C13048;
+    --pink: #FF8FAB;
+    --light-pink: #FFD6E0;
+    --purple: #9B5DE5;
+    --lavender: #C3A6FF;
+    --soft-lavender: #E8DEFF;
+    --cream: #FFF5F7;
+    --dark: #2D1B36;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: var(--cream);
+    cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='18' font-size='18'>💖</text></svg>") 8 8, auto;
+  }
+
+  .pixel-hearts {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pixel-heart {
+    position: absolute;
+    opacity: 0;
+    animation: floatHeart linear infinite;
+    image-rendering: pixelated;
+    font-style: normal;
+  }
+
+  @keyframes floatHeart {
+    0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+    5% { opacity: 0.6; transform: translateY(95vh) rotate(10deg) scale(0.8); }
+    50% { opacity: 0.8; }
+    95% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(0.5); opacity: 0; }
+  }
+
+  .screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+
+  .screen.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* === SCREEN 1: PLAY BUTTON === */
+  #screen1 {
+    background: linear-gradient(135deg, var(--soft-lavender) 0%, var(--cream) 50%, var(--light-pink) 100%);
+  }
+
+  .play-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    animation: gentleBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .play-btn-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: var(--purple);
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 var(--lavender);
+  }
+
+  .play-btn {
+    width: 140px;
+    height: 140px;
+    background: var(--red);
+    border: none;
+    border-radius: 28px;
+    cursor: pointer;
+    position: relative;
+    box-shadow:
+      0 8px 0 var(--red-dark),
+      0 12px 30px rgba(232, 69, 90, 0.4),
+      inset 0 -4px 0 rgba(0,0,0,0.15),
+      inset 0 4px 0 rgba(255,255,255,0.2);
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+  }
+
+  .play-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 11px 0 var(--red-dark), 0 16px 40px rgba(232,69,90,0.5), inset 0 -4px 0 rgba(0,0,0,0.15), inset 0 4px 0 rgba(255,255,255,0.2);
+  }
+
+  .play-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 var(--red-dark), 0 6px 20px rgba(232,69,90,0.3), inset 0 -4px 0 rgba(0,0,0,0.15), inset 0 4px 0 rgba(255,255,255,0.2);
+  }
+
+  .play-triangle {
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 28px 0 28px 48px;
+    border-color: transparent transparent transparent var(--white);
+    margin-left: 8px;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.15));
+  }
+
+  .play-btn-subtext {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--pink);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .pixel-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+  }
+
+  /* === SCREEN 2: ENVELOPE === */
+  #screen2 {
+    background: linear-gradient(180deg, var(--soft-lavender) 0%, var(--light-pink) 100%);
+  }
+
+  .envelope-prompt {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: var(--purple);
+    margin-bottom: 30px;
+    animation: blink 1.2s ease-in-out infinite;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Envelope using SVG + CSS animations for smooth open */
+  .envelope-wrap {
+    position: relative;
+    width: 300px;
+    height: 260px;
+    cursor: pointer;
+  }
+
+  .envelope-svg {
+    width: 300px;
+    height: 220px;
+    position: relative;
+  }
+
+  /* The back of the envelope */
+  .env-back {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+    height: 200px;
+    background: var(--red);
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(232, 69, 90, 0.3);
+    overflow: hidden;
+  }
+
+  .env-back::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 6px 6px;
+  }
+
+  /* Inner V shape */
+  .env-v {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .env-v::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    right: -10px;
+    height: 200px;
+    background: #F0B0BC;
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* Letter */
+  .env-letter {
+    position: absolute;
+    width: 260px;
+    height: 160px;
+    left: 20px;
+    bottom: 20px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .envelope-wrap.opening .env-letter {
+    transform: translateY(-210px);
+    transition-delay: 0.6s;
+  }
+
+  .env-letter-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--purple);
+    text-align: center;
+    line-height: 2.2;
+    padding: 20px;
+  }
+
+  /* Heart seal */
+  .env-seal {
+    position: absolute;
+    bottom: 76px;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    width: 52px;
+    height: 52px;
+    background: var(--purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    box-shadow: 0 3px 10px rgba(155, 93, 229, 0.4);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s, opacity 0.4s ease 0.1s;
+    font-size: 24px;
+    color: var(--light-pink);
+  }
+
+  .envelope-wrap.opening .env-seal {
+    transform: translateX(-50%) scale(0) rotate(180deg);
+    opacity: 0;
+  }
+
+  /* Flap - using perspective and 3D rotation */
+  .env-flap-container {
+    position: absolute;
+    top: 0;
+    width: 300px;
+    height: 120px;
+    z-index: 5;
+    perspective: 600px;
+  }
+
+  .env-flap {
+    width: 100%;
+    height: 100%;
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    transition: transform 1.0s cubic-bezier(0.4, 0.0, 0.2, 1);
+    position: relative;
+  }
+
+  .env-flap-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  .env-flap-front {
+    background: linear-gradient(180deg, #D63D50 0%, var(--red) 100%);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+  }
+
+  .env-flap-front::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 6px 6px;
+  }
+
+  .env-flap-back {
+    background: linear-gradient(180deg, #F7C5CE 0%, #FADADD 100%);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform: rotateX(180deg);
+  }
+
+  .envelope-wrap.opening .env-flap {
+    transform: rotateX(-180deg);
+  }
+
+  /* Shadow */
+  .env-shadow {
+    width: 260px;
+    height: 14px;
+    margin: 6px auto 0;
+    background: radial-gradient(ellipse, rgba(45, 27, 54, 0.12), transparent 70%);
+    border-radius: 50%;
+    transition: all 0.8s ease;
+  }
+
+  .envelope-wrap.opening .env-shadow {
+    width: 290px;
+    opacity: 0.6;
+  }
+
+  /* === SCREEN 3: THE QUESTION === */
+  #screen3 {
+    background: linear-gradient(180deg, #E8DEFF 0%, var(--light-pink) 50%, var(--cream) 100%);
+  }
+
+  .question-container {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+  }
+
+  .question-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 2;
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease forwards 0.3s;
+  }
+
+  .question-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 22px;
+    color: var(--red);
+    text-shadow: 3px 3px 0 var(--pink);
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease forwards 0.6s, pulse 1.5s ease-in-out infinite 1.2s;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .question-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    color: var(--purple);
+    line-height: 2.2;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 0 var(--soft-lavender);
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease forwards 0.9s;
+  }
+
+  .buttons-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    position: relative;
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease forwards 1.2s;
+  }
+
+  .btn-yes, .btn-no {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    image-rendering: pixelated;
+    position: relative;
+  }
+
+  .btn-pixel-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 6px 6px;
+    pointer-events: none;
+  }
+
+  .btn-yes {
+    background: var(--red);
+    color: var(--white);
+    box-shadow: 0 6px 0 var(--red-dark), 0 8px 20px rgba(232, 69, 90, 0.3);
+    transition: all 0.15s ease;
+  }
+
+  .btn-yes:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 var(--red-dark), 0 12px 30px rgba(232, 69, 90, 0.4);
+  }
+
+  .btn-yes:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 var(--red-dark), 0 4px 10px rgba(232, 69, 90, 0.2);
+  }
+
+  .btn-no {
+    background: var(--lavender);
+    color: var(--dark);
+    box-shadow: 0 6px 0 #9B7FCC, 0 8px 20px rgba(155, 93, 229, 0.2);
+    z-index: 100;
+  }
+
+  .btn-no.dodging {
+    position: fixed;
+    transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* === CLOUDS === */
+  .clouds-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  .cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+    image-rendering: pixelated;
+    box-shadow: 0 4px 20px rgba(195, 166, 255, 0.15);
+  }
+
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+  }
+
+  .cloud::before { width: 55%; height: 75%; top: -38%; left: 18%; }
+  .cloud::after { width: 40%; height: 55%; top: -22%; right: 18%; }
+
+  @keyframes driftCloud {
+    0% { transform: translateX(-150%); opacity: 0; }
+    8% { opacity: 0.85; }
+    92% { opacity: 0.85; }
+    100% { transform: translateX(calc(100vw + 150%)); opacity: 0; }
+  }
+
+  /* === SCREEN 4: WOOOOOOOO === */
+  #screen4 {
+    background: linear-gradient(135deg, var(--soft-lavender) 0%, var(--light-pink) 50%, var(--cream) 100%);
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 55px 65px;
+    box-shadow: 0 10px 0 var(--lavender), 0 20px 60px rgba(155, 93, 229, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 440px;
+    animation: cardAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    image-rendering: pixelated;
+  }
+
+  @keyframes cardAppear {
+    0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(155, 93, 229, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(155, 93, 229, 0.04) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+    border-radius: 20px;
+  }
+
+  .card-thanks {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
+    color: var(--red);
+    text-shadow: 3px 3px 0 var(--pink);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .card-woo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 28px;
+    color: var(--purple);
+    text-shadow: 3px 3px 0 var(--lavender);
+    animation: wooShake 0.4s ease-in-out infinite alternate;
+    letter-spacing: 2px;
+    line-height: 1.4;
+  }
+
+  @keyframes wooShake {
+    0% { transform: rotate(-2deg) scale(1); }
+    100% { transform: rotate(2deg) scale(1.05); }
+  }
+
+  /* === SPARKLES === */
+  .sparkle {
+    position: fixed;
+    border-radius: 1px;
+    pointer-events: none;
+    z-index: 200;
+    image-rendering: pixelated;
+    animation: sparkleAnim 0.6s ease-out forwards;
+  }
+
+  @keyframes sparkleAnim {
+    0% { transform: scale(1) translate(0, 0); opacity: 1; }
+    100% { transform: scale(0) translate(var(--tx), var(--ty)); opacity: 0; }
+  }
+
+  /* === MUSIC TOGGLE === */
+  .music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 500;
+    background: var(--white);
+    border: 3px solid var(--lavender);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 0 var(--lavender), 0 6px 15px rgba(155,93,229,0.2);
+    transition: all 0.15s ease;
+  }
+
+  .music-toggle:hover { transform: translateY(-2px); }
+  .music-toggle:active { transform: translateY(2px); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 500px) {
+    .question-text { font-size: 12px; }
+    .question-name { font-size: 16px; }
+    .play-btn { width: 110px; height: 110px; border-radius: 22px; }
+    .play-triangle { border-width: 22px 0 22px 38px; }
+    .play-btn-label { font-size: 11px; }
+    .envelope-wrap, .envelope-svg, .env-back, .env-v, .env-flap-container { width: 250px; }
+    .env-back, .env-v { height: 170px; }
+    .env-flap-container { height: 100px; }
+    .env-letter { width: 220px; height: 130px; left: 15px; }
+    .env-seal { bottom: 60px; }
+    .card { padding: 35px 30px; margin: 20px; }
+    .card-thanks { font-size: 16px; }
+    .card-woo { font-size: 20px; }
+    .btn-yes, .btn-no { font-size: 11px; padding: 14px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pixel-hearts" id="pixelHearts"></div>
+
+<!-- SCREEN 1: Play Button -->
+<div class="screen active" id="screen1">
+  <div class="play-btn-wrapper">
+    <div class="play-btn-label">A MESSAGE FOR YOU</div>
+    <button class="play-btn pixel-grid" id="playBtn" aria-label="Play">
+      <div class="play-triangle"></div>
+    </button>
+    <div class="play-btn-subtext">tap to play</div>
+  </div>
+</div>
+
+<!-- SCREEN 2: Envelope -->
+<div class="screen" id="screen2">
+  <div class="envelope-prompt">you have a letter!<br>tap to open</div>
+  <div class="envelope-wrap" id="envelopeWrap">
+    <div class="envelope-svg">
+      <div class="env-back"></div>
+      <div class="env-v"></div>
+      <div class="env-letter">
+        <div class="env-letter-text">
+          Something special<br>is waiting for you...
+          <br><span style="font-size:16px; margin-top:6px; display:inline-block;">&#10084;</span>
+        </div>
+      </div>
+      <div class="env-seal">&#10084;</div>
+      <div class="env-flap-container">
+        <div class="env-flap">
+          <div class="env-flap-face env-flap-front"></div>
+          <div class="env-flap-face env-flap-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="env-shadow"></div>
+  </div>
+</div>
+
+<!-- SCREEN 3: The Question -->
+<div class="screen" id="screen3">
+  <div class="clouds-container" id="cloudsContainer"></div>
+  <div class="question-container">
+    <div class="question-title">Hey...</div>
+    <div class="question-name">Tanieal</div>
+    <div class="question-text">Will you be<br>my Valentine?</div>
+    <div class="buttons-container" id="buttonsContainer">
+      <button class="btn-yes btn-pixel-grid" id="btnYes">Yes!</button>
+      <button class="btn-no btn-pixel-grid" id="btnNo">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 4: WOOOOOOOO -->
+<div class="screen" id="screen4">
+  <div class="card">
+    <div class="card-thanks">Thanks, cutie!</div>
+    <div class="card-woo">WOOOOOOOO!!!</div>
+  </div>
+</div>
+
+<button class="music-toggle" id="musicToggle" title="Toggle music">&#127925;</button>
+
+<script>
+  // ============================
+  // SMOOTH JAZZ - Web Audio API
+  // ============================
+  let audioCtx = null;
+  let musicPlaying = false;
+  let musicStarted = false;
+  let masterGain = null;
+  let jazzIntervals = [];
+
+  function playTone(freq, type, startTime, duration, volume, panVal) {
+    if (!audioCtx || !musicPlaying) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const pan = audioCtx.createStereoPanner();
+
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, startTime);
+
+    // Vibrato
+    const vib = audioCtx.createOscillator();
+    const vibG = audioCtx.createGain();
+    vib.frequency.value = 4 + Math.random() * 2;
+    vibG.gain.value = freq * 0.004;
+    vib.connect(vibG);
+    vibG.connect(osc.frequency);
+    vib.start(startTime);
+    vib.stop(startTime + duration + 0.1);
+
+    const atk = Math.min(0.1, duration * 0.15);
+    const rel = Math.min(0.5, duration * 0.35);
+    gain.gain.setValueAtTime(0, startTime);
+    gain.gain.linearRampToValueAtTime(volume, startTime + atk);
+    gain.gain.setValueAtTime(volume * 0.75, startTime + duration - rel);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+    pan.pan.value = panVal || 0;
+    osc.connect(gain);
+    gain.connect(pan);
+    pan.connect(masterGain);
+    osc.start(startTime);
+    osc.stop(startTime + duration + 0.05);
+  }
+
+  function playBrush(startTime, vol) {
+    if (!audioCtx || !musicPlaying) return;
+    const len = audioCtx.sampleRate * 0.07;
+    const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    const src = audioCtx.createBufferSource();
+    src.buffer = buf;
+    const filt = audioCtx.createBiquadFilter();
+    filt.type = 'highpass';
+    filt.frequency.value = 6500;
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(vol, startTime);
+    g.gain.exponentialRampToValueAtTime(0.001, startTime + 0.09);
+    src.connect(filt);
+    filt.connect(g);
+    g.connect(masterGain);
+    src.start(startTime);
+  }
+
+  // Soft kick-like thump
+  function playKick(startTime, vol) {
+    if (!audioCtx || !musicPlaying) return;
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(120, startTime);
+    osc.frequency.exponentialRampToValueAtTime(40, startTime + 0.15);
+    g.gain.setValueAtTime(vol, startTime);
+    g.gain.exponentialRampToValueAtTime(0.001, startTime + 0.2);
+    osc.connect(g);
+    g.connect(masterGain);
+    osc.start(startTime);
+    osc.stop(startTime + 0.25);
+  }
+
+  function createSmoothJazz() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0.22;
+      masterGain.connect(audioCtx.destination);
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    // Jazz chord voicings (Rhodes-style)
+    const prog = [
+      { ch: [261.63, 329.63, 392.00, 493.88, 587.33], bass: [130.81, 155.56, 164.81, 146.83] }, // Cmaj9
+      { ch: [220.00, 261.63, 329.63, 415.30, 493.88], bass: [110.00, 123.47, 130.81, 116.54] }, // Am9
+      { ch: [349.23, 440.00, 523.25, 659.25, 392.00], bass: [87.31, 98.00, 110.00, 103.83] },   // Fmaj9
+      { ch: [293.66, 369.99, 440.00, 523.25, 587.33], bass: [98.00, 110.00, 116.54, 123.47] },   // G13
+      { ch: [293.66, 349.23, 440.00, 523.25, 329.63], bass: [73.42, 82.41, 87.31, 98.00] },      // Dm9
+      { ch: [329.63, 392.00, 493.88, 587.33, 369.99], bass: [82.41, 87.31, 98.00, 110.00] },     // Em9
+      { ch: [349.23, 440.00, 523.25, 659.25, 587.33], bass: [87.31, 98.00, 110.00, 87.31] },     // Fmaj9 (repeat)
+      { ch: [392.00, 493.88, 587.33, 698.46, 440.00], bass: [98.00, 116.54, 123.47, 130.81] },   // G13sus
+    ];
+
+    let idx = 0;
+    const beat = 0.5;
+    const bar = beat * 4;
+
+    function playBar() {
+      if (!musicPlaying) return;
+      const now = audioCtx.currentTime + 0.05;
+      const c = prog[idx % prog.length];
+
+      // Rhodes piano chords
+      c.ch.forEach((f, i) => {
+        const off = i * 0.012;
+        playTone(f, 'triangle', now + off, bar * 0.9, 0.03 / (i * 0.25 + 1), -0.2);
+        playTone(f * 1.002, 'sine', now + off, bar * 0.75, 0.018 / (i * 0.25 + 1), -0.25);
+      });
+
+      // Walking bass
+      c.bass.forEach((f, i) => {
+        const t = now + i * beat;
+        playTone(f, 'triangle', t, beat * 0.82, 0.085, 0.05);
+        playTone(f * 0.5, 'sine', t, beat * 0.7, 0.055, 0);
+      });
+
+      // Brush drums
+      for (let i = 0; i < 4; i++) {
+        playBrush(now + i * beat, 0.035);
+        if (i < 3) playBrush(now + i * beat + beat * 0.5, 0.02);
+      }
+      // Soft kick on 1 and 3
+      playKick(now, 0.04);
+      playKick(now + beat * 2, 0.03);
+
+      // Sax-like melodic lead (random phrases)
+      if (Math.random() > 0.35) {
+        const scale = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33];
+        const notes = 2 + Math.floor(Math.random() * 3);
+        let t = now + beat * (0.5 + Math.random() * 1.5);
+        for (let m = 0; m < notes; m++) {
+          const f = scale[Math.floor(Math.random() * scale.length)] * 2;
+          const d = beat * (0.25 + Math.random() * 0.5);
+          playTone(f, 'sawtooth', t, d, 0.01, 0.3);
+          playTone(f, 'triangle', t, d, 0.013, 0.25);
+          t += d * 0.85;
+        }
+      }
+
+      idx++;
+    }
+
+    playBar();
+    const loop = setInterval(() => {
+      if (!musicPlaying) { clearInterval(loop); return; }
+      playBar();
+    }, bar * 1000);
+    jazzIntervals.push(loop);
+  }
+
+  function toggleMusic() {
+    const btn = document.getElementById('musicToggle');
+    if (!musicStarted) {
+      musicPlaying = true;
+      musicStarted = true;
+      createSmoothJazz();
+      btn.innerHTML = '&#128266;';
+    } else if (musicPlaying) {
+      musicPlaying = false;
+      jazzIntervals.forEach(i => clearInterval(i));
+      jazzIntervals = [];
+      if (masterGain) masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+      btn.innerHTML = '&#128263;';
+    } else {
+      musicPlaying = true;
+      if (masterGain) masterGain.gain.linearRampToValueAtTime(0.22, audioCtx.currentTime + 0.3);
+      createSmoothJazz();
+      btn.innerHTML = '&#128266;';
+    }
+  }
+
+  document.getElementById('musicToggle').addEventListener('click', toggleMusic);
+
+  // ============================
+  // FLOATING PIXEL HEARTS
+  // ============================
+  (function() {
+    const container = document.getElementById('pixelHearts');
+    const colors = ['#E8455A', '#FF8FAB', '#C3A6FF', '#9B5DE5', '#FFD6E0'];
+    for (let i = 0; i < 18; i++) {
+      const h = document.createElement('div');
+      h.className = 'pixel-heart';
+      h.innerHTML = '&#9829;';
+      h.style.left = Math.random() * 100 + '%';
+      h.style.fontSize = (10 + Math.random() * 18) + 'px';
+      h.style.color = colors[Math.floor(Math.random() * colors.length)];
+      h.style.animationDuration = (10 + Math.random() * 15) + 's';
+      h.style.animationDelay = (Math.random() * 12) + 's';
+      container.appendChild(h);
+    }
+  })();
+
+  // ============================
+  // SPARKLE ON CLICK
+  // ============================
+  document.addEventListener('click', (e) => {
+    for (let i = 0; i < 8; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      const cols = ['#E8455A', '#FF8FAB', '#9B5DE5', '#C3A6FF', '#FFD6E0'];
+      s.style.background = cols[Math.floor(Math.random() * cols.length)];
+      const angle = (Math.PI * 2 / 8) * i + (Math.random() - 0.5) * 0.5;
+      const dist = 20 + Math.random() * 30;
+      s.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+      s.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+      s.style.left = e.clientX + 'px';
+      s.style.top = e.clientY + 'px';
+      const sz = 3 + Math.random() * 5;
+      s.style.width = sz + 'px';
+      s.style.height = sz + 'px';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 600);
+    }
+  });
+
+  // ============================
+  // SCREEN TRANSITIONS
+  // ============================
+  function showScreen(hideId, showId, delay) {
+    document.getElementById(hideId).classList.remove('active');
+    setTimeout(() => document.getElementById(showId).classList.add('active'), delay || 500);
+  }
+
+  // Screen 1 -> 2
+  document.getElementById('playBtn').addEventListener('click', () => {
+    if (!musicStarted) {
+      musicPlaying = true;
+      musicStarted = true;
+      createSmoothJazz();
+      document.getElementById('musicToggle').innerHTML = '&#128266;';
+    }
+    showScreen('screen1', 'screen2');
+  });
+
+  // Screen 2 -> 3 (envelope)
+  let envOpened = false;
+  document.getElementById('envelopeWrap').addEventListener('click', () => {
+    if (envOpened) return;
+    envOpened = true;
+    document.getElementById('envelopeWrap').classList.add('opening');
+    setTimeout(() => {
+      showScreen('screen2', 'screen3', 600);
+      activateNoButton();
+    }, 2000);
+    setTimeout(spawnClouds, 2600);
+  });
+
+  // ============================
+  // CLOUDS
+  // ============================
+  function spawnClouds() {
+    const c = document.getElementById('cloudsContainer');
+    function add() {
+      const cl = document.createElement('div');
+      cl.className = 'cloud';
+      cl.style.width = (100 + Math.random() * 160) + 'px';
+      cl.style.height = (35 + Math.random() * 25) + 'px';
+      cl.style.top = (5 + Math.random() * 75) + '%';
+      const dur = 18 + Math.random() * 22;
+      cl.style.animation = `driftCloud ${dur}s linear`;
+      c.appendChild(cl);
+      setTimeout(() => cl.remove(), dur * 1000);
+    }
+    for (let i = 0; i < 4; i++) setTimeout(add, i * 600);
+    setInterval(add, 3500);
+  }
+
+  // ============================
+  // DODGING NO BUTTON
+  // ============================
+  const btnNo = document.getElementById('btnNo');
+  let noX = 0, noY = 0, noReady = false;
+
+  // Called once screen 3 is fully visible to lock in position
+  function activateNoButton() {
+    setTimeout(() => {
+      const r = btnNo.getBoundingClientRect();
+      noX = r.left;
+      noY = r.top;
+      // Now switch to fixed at exact same visual position
+      btnNo.classList.add('dodging');
+      btnNo.style.left = noX + 'px';
+      btnNo.style.top = noY + 'px';
+      noReady = true;
+    }, 1500); // Wait for screen fade + button fadeSlideUp animation to finish
+  }
+
+  function dodge(e) {
+    if (!noReady) return;
+    const r = btnNo.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const mx = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+    const my = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY) || 0;
+    const dist = Math.hypot(mx - cx, my - cy);
+    if (dist < 130) {
+      const ang = Math.atan2(cy - my, cx - mx);
+      const push = 160 + Math.random() * 120;
+      let nx = noX + Math.cos(ang) * push;
+      let ny = noY + Math.sin(ang) * push;
+      const pad = 15, maxX = window.innerWidth - r.width - pad, maxY = window.innerHeight - r.height - pad;
+      if (nx < pad || nx > maxX) nx = pad + Math.random() * (maxX - pad);
+      if (ny < pad || ny > maxY) ny = pad + Math.random() * (maxY - pad);
+      noX = Math.max(pad, Math.min(nx, maxX));
+      noY = Math.max(pad, Math.min(ny, maxY));
+      btnNo.style.left = noX + 'px';
+      btnNo.style.top = noY + 'px';
+    }
+  }
+
+  document.addEventListener('mousemove', dodge);
+  document.addEventListener('touchmove', dodge, { passive: true });
+  // Mobile: dodge on any tap near the button
+  document.addEventListener('touchstart', (e) => {
+    if (!noReady) return;
+    const touch = e.touches[0];
+    if (!touch) return;
+    const r = btnNo.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const dist = Math.hypot(touch.clientX - cx, touch.clientY - cy);
+    if (dist < 180) {
+      // Fling away from tap point
+      const ang = Math.atan2(cy - touch.clientY, cx - touch.clientX);
+      const push = 180 + Math.random() * 140;
+      let nx = noX + Math.cos(ang) * push;
+      let ny = noY + Math.sin(ang) * push;
+      const pad = 15, maxX = window.innerWidth - r.width - pad, maxY = window.innerHeight - r.height - pad;
+      if (nx < pad || nx > maxX) nx = pad + Math.random() * (maxX - pad);
+      if (ny < pad || ny > maxY) ny = pad + Math.random() * (maxY - pad);
+      noX = Math.max(pad, Math.min(nx, maxX));
+      noY = Math.max(pad, Math.min(ny, maxY));
+      btnNo.style.left = noX + 'px';
+      btnNo.style.top = noY + 'px';
+    }
+  }, { passive: true });
+
+  // Screen 3 -> 4
+  document.getElementById('btnYes').addEventListener('click', () => showScreen('screen3', 'screen4', 400));
+
+  btnNo.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!noReady) return;
+    noX = Math.random() * (window.innerWidth - 150);
+    noY = Math.random() * (window.innerHeight - 60);
+    btnNo.style.left = noX + 'px';
+    btnNo.style.top = noY + 'px';
+  });
+</script>
+</body>
+</html>
